@@ -79,7 +79,7 @@ namespace ModasSeedData
 
             foreach(Event e in events)
             {
-                Console.WriteLine(e.ToString());
+                Console.WriteLine(e.ToString()+"\n" );
             }
 
             // loop for each day in the range from 6 months ago to today
