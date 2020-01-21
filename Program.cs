@@ -9,6 +9,15 @@ namespace ModasSeedData
     {
         public static void Main(string[] args)
         {
+
+            const int MONTHS_BACK = 6;
+
+            const int DAYS_INTERVAL = 1;
+
+            const int MAX_EVENTS_PER_DAY = 5;
+
+            const int MIN_EVENTS_PER_DAY = 0;
+
             // first create Locations list
             List<Location> Locations = new List<Location>()
             {
@@ -25,7 +34,7 @@ namespace ModasSeedData
             DateTime localDate = DateTime.Now;
             // TODO: subtract 6 months from date
 
-            DateTime eventDate = localDate.AddMonths(-6);
+            DateTime eventDate = localDate.AddMonths(-MONTHS_BACK);
 
             // eventDate = ???
             // TODO: instantiate Random class
@@ -39,14 +48,15 @@ namespace ModasSeedData
             while(eventDate < localDate)
             {
                 //Console.WriteLine("Generating for " + eventDate);
-                int numOfEvents = rnd.Next(0, 6);
+                int numOfEvents = rnd.Next(MIN_EVENTS_PER_DAY, MAX_EVENTS_PER_DAY + 1);
 
                 List<Event> newEvents = new List<Event>();
 
                 for(int i = 0; i < numOfEvents; i++)
                 {
                     Event newEvent = new Event();
-                    newEvent.Location = Locations.ElementAt(rnd.Next(0, 3));
+                    newEvent.Location = Locations.ElementAt(rnd.Next(0, Locations.Count));
+                    newEvent.LocationId = newEvent.Location.LocationId;
                     int hour = rnd.Next(0, 24);
                     int minute = rnd.Next(0, 60);
                     int second = rnd.Next(0, 60);
@@ -64,7 +74,7 @@ namespace ModasSeedData
                     events.AddLast(e);
                 }
 
-                eventDate = eventDate.AddDays(1);
+                eventDate = eventDate.AddDays(DAYS_INTERVAL);
             }
 
             foreach(Event e in events)
